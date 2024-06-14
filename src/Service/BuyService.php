@@ -15,8 +15,8 @@ class BuyService
         $price = $apiClient->getCurrentPrice($symbol);
         $quantity = $amount / $price;
 
-        // Insert transaction into the database
-        $stmt = $pdo->prepare("INSERT INTO transactions (user_id, symbol, quantity, price, type, created_at) VALUES (?, ?, ?, ?, 'buy', ?)");
+        $stmt = $pdo->prepare("INSERT INTO transactions (user_id, symbol, quantity, price, type, created_at) 
+VALUES (?, ?, ?, ?, 'buy', ?)");
         $stmt->execute([
             $user->getId(),
             $symbol,

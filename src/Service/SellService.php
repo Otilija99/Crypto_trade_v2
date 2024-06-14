@@ -16,11 +16,13 @@ class SellService
         $amount = $quantity * $price;
 
         // Check if user has enough quantity
-        $stmt = $pdo->prepare("SELECT SUM(quantity) as total_quantity FROM transactions WHERE user_id = ? AND symbol = ? AND type = 'buy'");
+        $stmt = $pdo->prepare("SELECT SUM(quantity) as total_quantity FROM transactions 
+                                       WHERE user_id = ? AND symbol = ? AND type = 'buy'");
         $stmt->execute([$user->getId(), $symbol]);
         $totalBought = $stmt->fetchColumn();
 
-        $stmt = $pdo->prepare("SELECT SUM(quantity) as total_quantity FROM transactions WHERE user_id = ? AND symbol = ? AND type = 'sell'");
+        $stmt = $pdo->prepare("SELECT SUM(quantity) as total_quantity FROM transactions 
+                                       WHERE user_id = ? AND symbol = ? AND type = 'sell'");
         $stmt->execute([$user->getId(), $symbol]);
         $totalSold = $stmt->fetchColumn();
 
@@ -31,7 +33,8 @@ class SellService
         }
 
         // Insert transaction into the database
-        $stmt = $pdo->prepare("INSERT INTO transactions (user_id, symbol, quantity, price, type, created_at) VALUES (?, ?, ?, ?, 'sell', ?)");
+        $stmt = $pdo->prepare("INSERT INTO transactions (user_id, symbol, quantity, price, type, created_at) 
+VALUES (?, ?, ?, ?, 'sell', ?)");
         $stmt->execute([
             $user->getId(),
             $symbol,

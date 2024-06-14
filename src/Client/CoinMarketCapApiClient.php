@@ -13,14 +13,12 @@ class CoinMarketCapApiClient implements ApiClientInterface
 
     public function __construct()
     {
-        // Load environment variables from .env file
-        $dotenv = Dotenv::createImmutable(__DIR__ . '/../../'); // Adjust path as needed
+        $dotenv = Dotenv::createImmutable(__DIR__ . '/../../');//es nezinu kapēc viņā ierakstot ceļu vairs nestrādā,
+        //bet atstājot tukšu joprojām strādā
         $dotenv->load();
 
-        // Get API key from environment variables
         $this->apiKey = $_ENV['COINMARKETCAP_API_KEY'];
 
-        // Initialize Guzzle client
         $this->client = new Client([
             'base_uri' => 'https://pro-api.coinmarketcap.com/v1/',
             'headers' => [
